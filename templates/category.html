@@ -6,7 +6,6 @@
       <tr>
         <th>Product Name</th>
         <th>Price</th>
-        <th>Description</th>
       </tr>
     </thead>
     <tbody>
@@ -14,7 +13,6 @@
       <tr>
         <td><a href="{{ url_for('product', product=product[1]) }}">{{ product[1] }}</a></td>
         <td>Price: Rs {{ product[2] }}</td>
-        <td>{{ product[3] }}</td>
       </tr>
       {% endfor %}
     </tbody>
