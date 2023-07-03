@@ -481,6 +481,19 @@ def delete_category(category_id):
     
     return redirect(url_for('admin_dashboard'))
 
+@app.route('/search')
+def search():
+    query = request.args.get('query')
+    products = []
+
+    if query:
+        with sqlite3.connect('database.db') as conn:
+            c = conn.cursor()
+            c.execute("SELECT * FROM products WHERE name LIKE ? OR price = ?", ('%' + query + '%', query))
+            products = c.fetchall()
+
+    return render_template('search_results.html', products=products, query=query)
+
 
 @app.route('/admin_logout')
 def admin_logout():

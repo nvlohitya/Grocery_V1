@@ -1,0 +1,12 @@
+{% extends "header.html" %}
+
+{% block body %}
+<div class="container">
+  <h2>Search Results for "{{ query }}"</h2>
+  <ul>
+    {% for product in products %}
+    <li>{{ product[1] }} - Rs{{ product[2] }}</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}

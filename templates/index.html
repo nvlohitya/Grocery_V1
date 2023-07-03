@@ -2,6 +2,15 @@
 
 {% block body %}
 <br></br>
+
+<form class="form-inline" method="GET" action="{{ url_for('search') }}">
+   <div class="input-group ml-auto">
+     <input type="text" class="form-control" placeholder="Search" name="query">
+     <div class="input-group-append">
+       <button class="btn btn-primary" type="submit">Search</button>
+     </div>
+   </div>
+ </form>
 <div class="container">
  <div class="row" >
 {% for i in categoryData%}
