@@ -19,8 +19,6 @@ try:
                 (productId INTEGER primary key autoincrement,
 		name TEXT,
 		price REAL,
-		description TEXT,
-		image TEXT,
 		stock INTEGER,
 		categoryId INTEGER,
 		FOREIGN KEY(categoryId) REFERENCES categories(categoryId)
