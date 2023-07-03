@@ -18,13 +18,6 @@
             <!-- right column for entries -->
             <div class="col-md-9 personal-info">
                 <h3>Personal Info</h3>
-                <b>{% with messages = get_flashed_messages() %}
-                    {% if messages %}
-                        {% for message in messages %}
-                            {{ message }}
-                        {% endfor %}
-                    {% endif %}
-                {% endwith %}</b>
 
                 <div class="form-group">
                     <label class="col-lg-3 control-label">First name:</label>
