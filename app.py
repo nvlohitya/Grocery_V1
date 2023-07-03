@@ -159,7 +159,7 @@ def product():
             c = conn.cursor()
             c.execute("SELECT * FROM products WHERE name=?", (product_name,))
             product_info = c.fetchone()
-            stock = product_info[5]
+            stock = product_info[3]
         
         return render_template('product_description.html', loggedIn=loggedIn, first_name=first_name, product_info=product_info, stock=stock)
     elif request.method == "POST":
@@ -168,7 +168,9 @@ def product():
             return redirect(url_for('loginform'))
         else:
             product_name = request.args.get('product')
-            quantity = int(request.form['quantity'])
+            quantity = request.form.get('quantity', 1)  # Default value is 1 if quantity is not present
+            quantity = int(quantity)
+
             with sqlite3.connect('database.db') as conn:
                 c = conn.cursor()
                 c.execute("SELECT productId, stock FROM products WHERE name=?", (product_name,))
@@ -193,6 +195,8 @@ def product():
                     flash("Product not found")
 
             return redirect(url_for('root'))
+
+
 
 @app.route('/cart')
 def cart():
@@ -349,14 +353,13 @@ def add_product(category_id):
         # Retrieve form data
         product_name = request.form.get('product_name')
         product_price = request.form.get('product_price')
-        product_description = request.form.get('product_description')
         stock = request.form.get('stock')
         
         # Perform validation and add the product to the database
         conn = sqlite3.connect('database.db')
         cursor = conn.cursor()
-        cursor.execute("INSERT INTO products (name, price, description,stock,categoryId) VALUES (?, ?, ?, ?,?)",
-                       (product_name, product_price, product_description,stock,category_id))
+        cursor.execute("INSERT INTO products (name, price,stock,categoryId) VALUES (?, ?, ?,?)",
+                       (product_name, product_price, stock,category_id))
         conn.commit()
         conn.close()
         
