@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Add Product</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+  <h1>Add Product</h1>
+  <form action="{{ url_for('add_product', category_id=category_id) }}" method="post">
+    <div>
+      <label for="product-name">Product Name:</label>
+      <input type="text" id="product-name" name="product_name">
+    </div>
+    <div>
+      <label for="product-price">Price:</label>
+      <input type="number" id="product-price" name="product_price">
+    </div>
+    <div>
+      <label for="product-description">Description:</label>
+      <textarea id="product-description" name="product_description"></textarea>
+    </div>
+    <div>
+      <label for="product-price">Stock</label>
+      <input type="number" id="product-price" name="stock">
+    </div>
+    <button type="submit">Add Product</button>
+  </form>
+  
+  <a href="{{ url_for('admin_view_products', category_id=category_id) }}">Back to Products</a>
+  <a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a>
+  <a href="{{ url_for('admin_logout') }}">Logout</a>
+</body>
+</html>
+
+

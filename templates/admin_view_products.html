@@ -1,0 +1,37 @@
+{% extends "header.html" %}
+{% block body %}
+<style>
+  td{
+    padding:20px
+
+  }
+</style>
+
+<div class="container" style="padding-top:20px;">
+  <h1>Admin View Products</h1>
+  <h2>Category: {{ category }}</h2>
+  <table class="product-table">
+    <tbody>
+      {% for product in products %}
+      <tr>
+        <td>{{ product[1] }}</td>
+        <td>Rs {{ product[2] }}</td>
+        <td>
+          <a href="{{ url_for('modify_product', product_id=product[0]) }}">Modify</a> </td>
+          <td><form action="{{ url_for('delete_product', product_id=product[0]) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this product?');">
+            <button type="submit" class="btn btn-danger">Delete</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <table>
+  <td><a href="{{ url_for('add_product', category_id=category_id) }}">Add Product</a></td>
+  <td><a href="{{ url_for('admin_dashboard') }}">Back to Dashboard</a></td>
+  </table>
+  
+</div>
+
+{% endblock %}
+

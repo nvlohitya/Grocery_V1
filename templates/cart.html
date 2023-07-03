@@ -13,7 +13,6 @@
             </tr>
         </thead>
         <tbody>
-            {% set total = 0 %}
             {% for item in cart_items %}
             <tr>
                 <td>{{ item[0] }}</td>
@@ -21,18 +20,25 @@
                 <td>{{ item[2] }}</td>
                 {% set subtotal = item[1] * item[2] %}
                 <td>{{ subtotal }}</td>
-                {% set total = total + subtotal %}
-                <td><form action="{{ url_for('remove_from_cart', product_id=item[3]) }}" method="POST">
-                    <button type="submit" class="btn btn-danger">Remove</button>
-                </form></td>
-                
+                <td>
+                    <form action="{{ url_for('remove_from_cart', product_id=item[3]) }}" method="POST">
+                        <button type="submit" class="btn btn-danger">Remove</button>
+                    </form>
+                </td>
             </tr>
-            {% endfor %}
+            {% endfor %}        
         </tbody>
+        <tfoot>
+            <tr>
+                <td colspan="3" align="right"><b>Total:</b></td>
+                <td>{{ total }}</td>
+            </tr>
+        </tfoot>
     </table>
     <form action="{{ url_for('logout') }}">
         <button type="submit" class="btn btn-primary">Checkout</button>
     </form>
-    
 </div>
 {% endblock %}
+
+

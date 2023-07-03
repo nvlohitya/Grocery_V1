@@ -24,13 +24,6 @@
     </label>
   </div>
   <button type="submit" class="btn btn-primary">Sign In</button>
-  <b> {% with messages = get_flashed_messages() %}
-          {% if messages %}         
-            {% for i in messages %}
-                {{i}}
-            {% endfor %} 
-          {% endif %}
-  {% endwith %} </b>
 </form>
 </div>
 </div>
