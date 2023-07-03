@@ -29,11 +29,12 @@ except:
     pass
 try:
     conn.execute('''CREATE TABLE kart
-		(userId Integer primary key,
+		(userId Integer 
 		productId INTEGER,
                 quantity integer,
 		FOREIGN KEY(userId) REFERENCES users(userId),
-		FOREIGN KEY(productId) REFERENCES products(productId)
+		FOREIGN KEY(productId) REFERENCES products(productId),
+        PRIMARY KEY(userId,productId)
 		)''')
 except:
     pass
@@ -44,5 +45,17 @@ try:
 		name TEXT,
                 image TEXT
 		)''')
+except:
+    pass
+
+try :
+    conn.execute('''CREATE TABLE admins (
+	adminId	INTEGER,
+	password	TEXT,
+	email	TEXT UNIQUE,
+	firstname	TEXT,
+	lastname	TEXT,
+	PRIMARY KEY(adminId AUTOINCREMENT)
+)''')
 except:
     pass
