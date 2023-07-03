@@ -4,9 +4,6 @@ from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.secret_key = 'random string'
-# UPLOAD_FOLDER = 'static'
-# ALLOWED_EXTENSIONS = set(['jpeg', 'jpg', 'png', 'gif'])
-# app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
   
 def getLogindetails():
     with sqlite3.connect('database.db') as data:
@@ -25,10 +22,6 @@ def getLogindetails():
                 first_name = ""
                 session.pop('email')
     return (loggedIn, first_name)    
-       
-# def allowed_file(filename):
-#     return '.' in filename and \
-#            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 def valid(email,password):
     conn = sqlite3.connect('database.db')
@@ -79,7 +72,6 @@ def logout():
 
 @app.route('/register',methods=['POST','GET'])   
 def register():
-    # print(app.config['UPLOAD_FOLDER'])
     if request.method == 'GET':
         return render_template('register.html')  
     elif request.method == 'POST':
