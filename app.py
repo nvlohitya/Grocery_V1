@@ -105,37 +105,6 @@ def profile():
         cur.execute("select * from users where email='{}'".format(session['email']))  
         user_info = cur.fetchone()
     return render_template('profile.html',loggedIn= loggedIn, first_name=first_name, user_info=user_info)
-
-@app.route('/profile/update',methods=['POST','GET'])
-def edit_profile():
-    if request.method == "GET":
-        loggedIn, first_name = getLogindetails()
-        if loggedIn == False:
-            return redirect(url_for('loginform'))
-        else:
-            with sqlite3.connect('database.db') as c:
-                conn = c.cursor()
-                conn.execute("select * from users where email='{}'".format(session['email']))
-                user_info = conn.fetchone()        
-            return render_template('update_profile.html',user_info=user_info, loggedIn=loggedIn, first_name=first_name)
-    elif request.method == "POST":
-        firstName = request.form['firstName']
-        lastName = request.form['lastName']        
-        update = "update users set firstname='{}',lastName='{}'where email='{}'".format(firstName,lastName,session['email'])
-        with sqlite3.connect('database.db') as con:
-            cur = con.cursor()
-            print(update)
-            try:
-                cur.execute(update)
-                con.commit()  
-                flash("update succesfull")
-                return redirect(url_for('edit_profile'))              
-            except:
-                flash("Something Went wrong")
-                return redirect(url_for('edit_profile'))  
-    else:
-        return "something went wrong"
-             
         
 
 @app.route('/passwordchange')

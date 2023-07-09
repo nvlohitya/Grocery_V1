@@ -9,20 +9,7 @@
     <div class="panel panel-default">
  
      <div class="panel-heading"><h4 >User Profile</h4></div>
-      <div class="panel-body">     
-        <div class="box box-info">
-         <div class="box-body">               
-          <div class="col-sm-6">                
-           <div  align="center">
-          {% if user_info[12] %}           
-             <img alt="User Pic" src="{{url_for('static',filename=user_info[12])}}" id="profile-image1" class="img-circle img-responsive" style="width:150px;height:150px;">         
-           {% else %}
-             <img alt="User Pic" src={{url_for('static',filename="default.jpg")}} id="profile-image1" class="img-circle img-responsive" style="width:150px;height:150px;">
-           {% endif %} 
-         </div>                   
-         </div>
-         <br>          
-         <hr style="margin:2px 0 2px 0;">  
+      
        <div class="col-sm-5 col-xs-6 tital " >First Name:</div>
          <div class="col-sm-7 col-xs-6 ">{{user_info[3]}}</div>    
           <hr style="margin:2px 0 2px 0;">       
@@ -41,9 +28,6 @@
   <!-- /.panel-body -->
   </div>
  </div><!-- closing col-7-->
-  <div class="col-md-3">
-     <a href="{{url_for('edit_profile')}}">Change profile</a>
-  </div><!---closing col-md-3--> 
  </div>
 <!-- ending row-->
 </div>
