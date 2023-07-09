@@ -280,31 +280,6 @@ def admin_login():
     else:
         return render_template('admin_login.html')
 
-@app.route('/admin_register', methods=['GET', 'POST'])
-def admin_register():
-    if request.method == 'GET':
-        return render_template('admin_register.html')
-    elif request.method == 'POST':
-        firstname = request.form['firstname']
-        lastname = request.form['lastname']
-        email = request.form['email']
-        password = request.form['password']
-        
-        # Perform validation and registration logic for admin
-        
-        # Example: Insert admin data into the database
-        with sqlite3.connect('database.db') as con:
-            cur = con.cursor()
-            query = "INSERT INTO admins (password , email , firstname, lastName) VALUES (?, ?, ?, ?)"
-            try:
-                cur.execute(query, (password , email, firstname, lastname))
-                con.commit()
-                return redirect('/admin_login')
-            except:
-                con.rollback()
-                flash('Error occurred during admin registration.')
-                return redirect(url_for('admin_register'))
-
 @app.route('/admin_dashboard')
 def admin_dashboard():
     if 'admin' not in session:
