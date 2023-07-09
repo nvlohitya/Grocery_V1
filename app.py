@@ -105,11 +105,6 @@ def profile():
         cur.execute("select * from users where email='{}'".format(session['email']))  
         user_info = cur.fetchone()
     return render_template('profile.html',loggedIn= loggedIn, first_name=first_name, user_info=user_info)
-        
-
-@app.route('/passwordchange')
-def Password_change():
-    return render_template("password_change.html")
 
 @app.route("/product", methods=['GET','POST'])
 def product():
