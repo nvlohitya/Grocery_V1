@@ -170,10 +170,10 @@ def product():
                 if product:
                     product_id, stock = product
                     if quantity <= stock:
-                        # Insert into kart table
+                        # Insert into cart table
                         c.execute("SELECT userId FROM users WHERE email=?", (session['email'],))
                         user_id = c.fetchone()[0]
-                        c.execute("INSERT INTO kart (userId, productId, quantity) VALUES (?, ?, ?)",
+                        c.execute("INSERT INTO cart (userId, productId, quantity) VALUES (?, ?, ?)",
                                   (user_id, product_id, quantity))
                         conn.commit()
 
@@ -201,7 +201,7 @@ def cart():
         # Fetch cart items for the logged-in user
         c.execute("""
             SELECT p.name, p.price, k.quantity , k.productId
-            FROM kart k
+            FROM cart k
             JOIN products p ON p.productId = k.productId
             JOIN users u ON u.userId = k.userId
             WHERE u.email = ?
@@ -223,7 +223,7 @@ def remove_from_cart(product_id):
         # Retrieve the quantity being removed
         c.execute("""
             SELECT quantity
-            FROM kart
+            FROM cart
             WHERE userId = (
                 SELECT userId
                 FROM users
@@ -232,9 +232,9 @@ def remove_from_cart(product_id):
         """, (session['email'], product_id))
         removed_quantity = c.fetchone()[0]
 
-        # Remove the product from the kart for the logged-in user
+        # Remove the product from the cart for the logged-in user
         c.execute("""
-            DELETE FROM kart
+            DELETE FROM cart
             WHERE userId = (
                 SELECT userId
                 FROM users
@@ -387,7 +387,7 @@ def delete_product(product_id):
             conn.commit()
 
             # Delete the product from the cart database if it is present
-            c.execute("DELETE FROM kart WHERE productId = ?", (product_id,))
+            c.execute("DELETE FROM cart WHERE productId = ?", (product_id,))
             conn.commit()
     
     flash('Product deleted successfully')

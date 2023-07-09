@@ -26,10 +26,10 @@ try:
 except:
     pass
 try:
-    conn.execute('''CREATE TABLE kart
+    conn.execute('''CREATE TABLE cart
 		(userId Integer 
 		productId INTEGER,
-                quantity integer,
+        quantity integer,
 		FOREIGN KEY(userId) REFERENCES users(userId),
 		FOREIGN KEY(productId) REFERENCES products(productId),
         PRIMARY KEY(userId,productId)
