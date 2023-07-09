@@ -45,12 +45,7 @@ def root():
         category_data = cur.fetchall()
     
     return render_template('index.html', loggedIn=loggedin, admin_loggedin=admin_loggedin, first_name=name, categoryData=category_data)
-
   
-@app.route('/about us')
-def Info():
-    return "That page will be avialabe soon"
-
 @app.route('/login')
 def loginform():
     if request.args.get('email'):
