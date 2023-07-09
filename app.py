@@ -1,9 +1,8 @@
 from flask import *
-import sqlite3, hashlib, os
-from werkzeug.utils import secure_filename
+import sqlite3
 
 app = Flask(__name__)
-app.secret_key = 'random string'
+app.secret_key = 'nice'
   
 def getLogindetails():
     with sqlite3.connect('database.db') as data:
@@ -13,7 +12,7 @@ def getLogindetails():
             first_name = ""
         else:
             try:
-                details = connection.execute("Select * from users where email='"+session['email']+"'") 
+                details = connection.execute("Select * from users where email=?",(session['email'],)) 
                 p = details.fetchone()
                 first_name = p[3]
                 loggedIn = True
@@ -26,7 +25,7 @@ def getLogindetails():
 def valid(email,password):
     conn = sqlite3.connect('database.db')
     cur = conn.cursor()
-    cur.execute("select email, password from users where email='"+email+"'")
+    cur.execute("select email, password from users where email=?",(email,))
     user = cur.fetchall()
     try:
         for i in user:
@@ -55,7 +54,6 @@ def loginform():
             session['email'] = email
             return redirect(url_for('root'))
         else:
-            flash("Invalid credentials")
             return render_template('login.html' )
     else:
         return render_template('login.html')
@@ -85,7 +83,6 @@ def register():
                 return redirect('/login')
             except:
                 con.rollback()
-                flash("Something Went wrong")
                 print(flash)
                 return redirect(url_for('register'))       
        
